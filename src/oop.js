@@ -3,7 +3,18 @@
  * Если координаты не переданы - 0,0; Аналогично если только 1 координата.
  * Реализовать метод, который возвращает расстояние от точки до центра координат (0, 0)
  */
-class Point {}
+class Point {
+  // Конструктор класса Point принимает значения x и y по умолчанию, устанавливая их в 0, если они не переданы.
+  constructor(x = 0, y = 0) {
+    this.x = x;
+    this.y = y;
+  }
+
+  // Метод distanceToOrigin вычисляет расстояние от точки до начала координат.
+  distanceToOrigin() {
+    return Math.sqrt(this.x ** 2 + this.y ** 2);
+  }
+} 
 
 /**
  * Напишите класс геометрической точки в трехмерном пространстве (x, y, z),
@@ -11,7 +22,19 @@ class Point {}
  * Реализовать статический метод, который возвращает расстояние между Point3D.
  */
 class Point3D extends Point {
-    static vectorLength(a, b) {}
+  // Конструктор класса Point3D расширяет конструктор Point, добавляя координату z.
+  constructor(x = 0, y = 0, z = 0) {
+    super(x, y); // Вызываем конструктор родительского класса Point с переданными значениями x и y.
+    this.z = z;   // Устанавливаем координату z для объекта Point3D.
+  }
+
+  // Статический метод vectorLength вычисляет длину вектора между двумя точками в трехмерном пространстве.
+  static vectorLength(pointA, pointB) {
+    const dx = pointB.x - pointA.x;
+    const dy = pointB.y - pointA.y;
+    const dz = pointB.z - pointA.z;
+    return Math.sqrt(dx ** 2 + dy ** 2 + dz ** 2);
+  }
 }
 
 /**
@@ -20,10 +43,33 @@ class Point3D extends Point {
  * Для тех, кто доверяет, но проверяет: написать тесты на методы класса (oop.spec.js)
  */
 class Queue {
-    push;
-    pop;
-    size;
-    clear;
+  // Конструктор класса Queue принимает массив элементов (по умолчанию пустой).
+  constructor(elements = []) {
+    this.queue = Array.isArray(elements) ? [...elements] : []; // Создаем массив элементов очереди.
+  }
+
+  // Метод push добавляет элементы в конец очереди.
+  push(...elements) {
+    this.queue.push(...elements);
+  }
+
+  // Метод pop удаляет и возвращает первый элемент из очереди, возвращая undefined, если очередь пуста.
+  pop() {
+    if (this.queue.length === 0) {
+      return undefined; // Возвращаем undefined, если очередь пуста.
+    }
+    return this.queue.shift();
+  }
+
+  // Геттер size возвращает текущий размер очереди.
+  get size() {
+    return this.queue.length;
+  }
+
+  // Метод clear очищает очередь, устанавливая ее длину в 0.
+  clear() {
+    this.queue = [];
+  }
 }
 
 module.exports = {
