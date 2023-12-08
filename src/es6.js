@@ -1,4 +1,5 @@
-/ Напишите функцию, которая принимает ФИО пользователя и возвращает
+/
+// Напишите функцию, которая принимает ФИО пользователя и возвращает
 // строку формата Имя Фамилия
 function fioToName(fio) {}
 function fioToName(fio) {
@@ -37,33 +38,35 @@ function calculateSalaryDifference(array) {
 // * покройте класс тестами
 class Dictionary {}
 class Dictionary {
-    describe('#Dictionary', () => {
-        it('экземпляр класса создается', () => {
-            const dic = new core.Dictionary();
-
-            // TODO
-            assert.strictEqual(!!dic, true);
-        });
-        it('получаем значение по ключу', () => {
-            const dic = new core.Dictionary();
-            dic.setVal("123", "qwe");
-            assert.strictEqual(dic.getVal("123"), "qwe");
-            assert.strictEqual(dic.getVal("qwe"), false);            
-        });
-        it('добавление значения', () => {
-            const dic = new core.Dictionary();
-            assert.strictEqual(dic.setVal("1", "test"), true);
-            assert.strictEqual(dic.setVal(1, "test"), false);
-            assert.strictEqual(dic.setVal([1, 2, 3], "test"), false);
-        });
-        it('удаление значения', () => {
-            const dic = new core.Dictionary();
-            dic.setVal("1", "test");
-            assert.strictEqual(dic.deleteVal("2"), false);
-            assert.strictEqual(dic.deleteVal("1"), true);
-        });
-    });
-});
+    constructor(){
+        this.dict = new Map();
+    }
+    getVal(key){
+        if(key != null && typeof(key) !== "undefined" && typeof(key) === "string"){
+            if(this.dict.has(key))
+                return this.dict.get(key);
+            else return false;
+        }
+        else return false;
+    }
+    setVal(key, value){
+        if (key != null && typeof(key) !== "undefined" && typeof(key) === "string" &&
+        value !== null && typeof(value) !== "undefined" && typeof(value) === "string"){
+            this.dict.set(key, value);
+            return true;
+        }
+        return false;
+    }
+    deleteVal(key){
+        if (key != null && typeof(key) !== "undefined" && typeof(key) === "string"){
+            if (this.dict.has(key)){
+                this.dict.delete(key);
+                return true;
+            }
+            return false;
+        }
+    }
+}
 
 module.exports = {
     fioToName,
